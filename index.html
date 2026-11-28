@@ -87,6 +87,51 @@ td.changed,div.changed{background:var(--changed);box-shadow:inset 3px 0 0 var(--
 .hidden{display:none !important}
 .hex{font:12px/1.5 var(--mono);white-space:pre;overflow:auto}
 .hex b{color:var(--warn);font-weight:700}
+#dlgDist{max-width:1280px;width:calc(100% - 32px);padding:0;overflow:hidden}
+#dlgDist[open]{display:flex;flex-direction:column;max-height:calc(100vh - 40px)}
+#dlgDist a{color:var(--accent);text-decoration:none;cursor:pointer}
+#dlgDist a:hover{text-decoration:underline}
+.dist-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:16px 20px 12px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),var(--panel))}
+.dist-head h2{margin:0 0 2px;font-size:18px}.dist-head p{margin:0;color:var(--muted);font-size:12.5px}
+.dist-body{display:grid;grid-template-columns:minmax(210px,1fr) minmax(320px,1.5fr) minmax(210px,1fr);gap:14px;padding:14px 20px;min-height:0;flex:1;overflow:hidden}
+.dist-col{display:flex;flex-direction:column;min-height:0;min-width:0}
+.dist-col h3{margin:0 0 8px;font-size:13px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dist-col h3 .dn{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--accent);color:#071322;font-size:11px;font-weight:700}
+.dist-col h3 .dcount{color:var(--muted);font-weight:400;font-size:12px}
+.dist-col h3 .dtools{margin-left:auto;display:flex;gap:10px;font-size:12px;font-weight:400}
+.dist-col input[type=text]{width:100%;margin-bottom:6px}
+.dist-tree{flex:1;min-height:200px;overflow:auto;border:1px solid var(--line);border-radius:10px;background:var(--list,#15181c)}
+.dist-tree .it{cursor:pointer;padding-right:8px}.dist-tree .it:hover{background:#ffffff0d}
+.dist-tree .it.ro{opacity:.4;cursor:not-allowed}
+.dist-tree .dchk{display:inline-grid;place-items:center;width:16px;height:16px;border:1.5px solid #5c6672;border-radius:4px;font-size:11px;line-height:1;color:transparent;flex:none}
+.dist-tree .dchk.on{background:var(--accent);border-color:var(--accent);color:#071322;font-weight:700}
+.dist-tree .it.sel{background:#0a3a52}
+.dist-opts{flex:1;min-height:0;overflow:auto;padding-right:4px}
+#dlgDist details{border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:var(--panel)}
+#dlgDist details>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:8px 10px;user-select:none}
+#dlgDist details>summary::-webkit-details-marker{display:none}
+#dlgDist details>summary::before{content:'▸';color:var(--muted);width:12px;transition:transform .12s}
+#dlgDist details[open]>summary::before{transform:rotate(90deg)}
+#dlgDist details.dsec>summary{font-weight:600;background:var(--panel2);border-radius:10px}
+#dlgDist details.dsec[open]>summary{border-bottom:1px solid var(--line);border-radius:10px 10px 0 0}
+#dlgDist .dsec-body{padding:8px 10px 2px}
+#dlgDist details.dgrp{background:transparent;border-color:#252b33;margin-bottom:6px}
+#dlgDist details.dgrp>summary{padding:6px 8px;font-size:13px}
+#dlgDist .dgcnt{margin-left:auto;color:var(--muted);font:11px var(--mono)}
+#dlgDist .tnode.fb{display:flex;align-items:center;gap:8px}
+#dlgDist .tnode.fb .tnm{flex:1;overflow:hidden;text-overflow:ellipsis}
+#dlgDist .tnode .dchk{margin-left:auto}
+#dlgDist .dchk.some{background:#0d3552;border-color:var(--accent);color:var(--accent)}
+#dlgDist .dstools{margin-left:auto;display:flex;gap:10px;font-size:12px;font-weight:400}
+#dlgDist .dchips{display:flex;flex-wrap:wrap;gap:6px;padding:4px 8px 10px}
+#dlgDist .dchip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border:1px solid #333b45;border-radius:999px;cursor:pointer;font-size:12.5px;user-select:none;background:#12161b}
+#dlgDist .dchip:hover{border-color:var(--accent)}
+#dlgDist .dchip.on{background:#0d3552;border-color:var(--accent);color:#fff}
+#dlgDist .dchip input{display:none}
+#dlgDist .dpads{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;padding:4px 8px 10px}
+.dist-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 20px;border-top:1px solid var(--line);background:var(--panel2)}
+.dist-foot #distMsg{min-height:1.3em;flex:1}
+@media (max-width:900px){.dist-body{grid-template-columns:1fr;overflow:auto}}
 dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px;max-width:640px;width:calc(100% - 32px)}
 dialog::backdrop{background:rgba(0,0,0,.6)}
 .form{display:grid;grid-template-columns:1fr auto;gap:8px 14px;align-items:center}
@@ -595,6 +640,7 @@ input.pr-ren{width:96px;font:inherit;font-weight:600;background:#0a0d12;color:#f
     <button data-cmd="view-ksc" data-view="ksc">Kit Screen Creator (design the module's kit picture)</button>
     <button data-cmd="view-dbg" data-view="dbg">Module debug log (test firmware)</button>
     <hr>
+    <button data-cmd="distribute">Copy settings between kits…</button>
     <button data-cmd="checksizes">Check the size of every kit</button>
     <button data-cmd="settings">Settings…</button>
     <button data-cmd="savecfg">Save app settings to a file… (kit layout, names, practice…)</button>
@@ -1204,6 +1250,35 @@ input.pr-ren{width:96px;font:inherit;font-weight:600;background:#0a0d12;color:#f
 
 <div class="statusbar"><span id="statusText">Ready</span><span id="statusRight" class="muted"></span></div>
 
+<dialog id="dlgDist">
+  <div class="dist-head">
+    <div><h2>Copy settings between kits</h2><p>Copy chosen settings from one kit into one or more user kits on the SD card. Every target is backed up first.</p></div>
+    <button type="button" class="iconbtn" id="distX" title="Close">✕</button>
+  </div>
+  <div class="dist-body">
+    <section class="dist-col">
+      <h3><span class="dn">1</span> Source kit</h3>
+      <input type="text" id="distSrcFilter" placeholder="Search kits…">
+      <div id="distSrcTree" class="tree dist-tree"></div>
+    </section>
+    <section class="dist-col wide">
+      <h3><span class="dn">2</span> Settings to copy <span id="distCount" class="dcount"></span>
+        <span class="dtools"><a href="#" id="distExpand">expand all</a><a href="#" id="distCollapse">collapse all</a><a href="#" id="distNoneAll">clear</a></span></h3>
+      <div id="distOpts" class="dist-opts"></div>
+    </section>
+    <section class="dist-col">
+      <h3><span class="dn">3</span> Copy to <span id="distKitCount" class="dcount"></span>
+        <span class="dtools"><a href="#" id="distKitAll">all shown</a><a href="#" id="distKitNone">none</a></span></h3>
+      <input type="text" id="distKitFilter" placeholder="Search kits…">
+      <div id="distKits" class="tree dist-tree"></div>
+      <div class="small muted" style="margin-top:6px">Only user kits on the SD card can be changed.</div>
+    </section>
+  </div>
+  <div class="dist-foot">
+    <div id="distMsg" class="small"></div>
+    <div class="row"><button type="button" id="distClose">Close</button><button type="button" id="distGo" class="primary">Copy settings</button></div>
+  </div>
+</dialog>
 <dialog id="dlgAsk">
   <form method="dialog" id="askForm">
     <p id="askMsg" style="margin-top:0;white-space:pre-wrap;max-width:460px"></p>
@@ -2018,6 +2093,7 @@ async function runCmd(c){
     case 'view-fw': setView('fw'); break;
     case 'view-ksc': setView('ksc'); break;
     case 'view-dbg': setView('dbg'); break;
+    case 'distribute': distributeOpen(); break;
     case 'checksizes': setView('kits'); openKitBrowser(); $('kitCheckAll').click(); break;
     case 'settings': $('btnSettings').click(); break;
     case 'help-connect': info(CONNECT_HELP); break;
@@ -2872,7 +2948,8 @@ function renderTree(host, items, o){
   const show = items.filter(it => words.every(w => hay(it).includes(w)) && (!o.cat || o.cat.test(it.path)));
   if (!show.length){ host.innerHTML = `<div class="it muted">${items.length ? 'Nothing matches.' : (o.empty||'Nothing loaded.')}</div>`; return; }
   const root = {kids:new Map(), items:[], count:0};
-  for (const it of show){ let n = root; for (const g of itemGroups(it)){ if (!n.kids.has(g)) n.kids.set(g, {name:g, kids:new Map(), items:[], count:0}); n = n.kids.get(g); n.count++; } n.items.push(it); }
+  for (const it of show){ let n = root; for (const g of itemGroups(it)){ if (!n.kids.has(g)) n.kids.set(g, {name:g, kids:new Map(), items:[], count:0, all:[]}); n = n.kids.get(g); n.count++; n.all.push(it); } n.items.push(it); }
+  const nodeAll = new Map();
   const searching = words.length>0 || !!o.cat;
   if (o.cur && o.state._cur !== o.cur) { o.state._cur = o.cur; let key=''; for (const g of itemGroups(o.cur)){ key += '/'+g; o.state.add(key); } }   // open the path to the selection only when the selection changes, so its folders can still be closed by hand
   const hl = (t) => { let h = esc(t); for (const w of words){ const i = h.toLowerCase().indexOf(esc(w)); if (i>=0) h = h.slice(0,i)+'<mark>'+h.slice(i,i+esc(w).length)+'</mark>'+h.slice(i+esc(w).length); } return h; };
@@ -2882,18 +2959,19 @@ function renderTree(host, items, o){
     const kids = [...n.kids.values()].sort((a,b)=>a.name.localeCompare(b.name, undefined, {numeric:true}));
     for (const k of kids){
       const key = path+'/'+k.name, open = searching || o.state.has(key);
-      html += `<div class="tnode${depth===0?' top':''}" data-key="${esc(key)}" style="padding-left:${6+depth*14}px">${open?'▾':'▸'} ${esc(k.name)}<span class="tc">${k.count}</span></div>`;
+      nodeAll.set(key, k.all);
+      html += `<div class="tnode${depth===0?' top':''}${o.folderBadge?' fb':''}" data-key="${esc(key)}" style="padding-left:${6+depth*14}px"><span class="tnm">${open?'▾':'▸'} ${esc(k.name)}<span class="tc">${k.count}</span></span>${o.folderBadge ? o.folderBadge(k.all) : ''}</div>`;
       if (open) walk(k, key, depth+1);
     }
     for (const it of n.items.sort((a,b)=>a.name.localeCompare(b.name, undefined, {numeric:true}))){
       if (++rows > LIM) continue;
-      html += `<div class="it${it===o.cur?' sel':''}${o.dirtyKey && o.dirtyKey(it)?' dirty':''}" data-i="${idx.get(it)}" title="${esc(it.ref||it.path)}" style="padding-left:${10+depth*14}px"><span class="nm">${hl(it.name)}</span>${o.badge ? o.badge(it) : ''}${o.onPlay?'<button class="iconbtn pb" data-play>▶</button>':''}${o.onAssign?'<button class="iconbtn pb" data-assign title="Put on the target layer">⇥</button>':''}</div>`;
+      html += `<div class="it${(o.isSel ? o.isSel(it) : it===o.cur)?' sel':''}${o.rowClass ? o.rowClass(it) : ''}${o.dirtyKey && o.dirtyKey(it)?' dirty':''}" data-i="${idx.get(it)}" title="${esc(it.ref||it.path)}" style="padding-left:${10+depth*14}px"><span class="nm">${hl(it.name)}</span>${o.badge ? o.badge(it) : ''}${o.onPlay?'<button class="iconbtn pb" data-play>▶</button>':''}${o.onAssign?'<button class="iconbtn pb" data-assign title="Put on the target layer">⇥</button>':''}</div>`;
     }
   };
   walk(root, '', 0);
   if (rows > LIM) html += `<div class="it muted">${rows-LIM} more: type a few more letters.</div>`;
   const sc = host.scrollTop; host.innerHTML = html; host.scrollTop = sc;
-  host.querySelectorAll('.tnode').forEach(el => el.onclick = () => { const k = el.dataset.key; if (searching) return; o.state.has(k) ? o.state.delete(k) : o.state.add(k); renderTree(host, items, o); });
+  host.querySelectorAll('.tnode').forEach(el => el.onclick = (e) => { const k = el.dataset.key; if (e.target.dataset.fchk != null){ e.stopPropagation(); o.onFolder(nodeAll.get(k)); return; } if (searching) return; o.state.has(k) ? o.state.delete(k) : o.state.add(k); renderTree(host, items, o); });
   host.querySelectorAll('.it[data-i]').forEach(el => {
     const it = items[+el.dataset.i];
     el.onclick = (e) => { if (e.target.dataset.play!=null){ o.onPlay(it); return; } if (e.target.dataset.assign!=null){ o.onAssign(it); return; } o.onPick(it); };
@@ -3648,6 +3726,141 @@ $('kitSave').onclick = async () => {
     flashNote('Saved. Power-cycle the module (or reload its kit list) so it picks up the change.');
   } catch(e){ alert('Save failed: '+e.message); }
 };
+/* ---------- Tools → Copy settings between kits ---------- */
+const DIST_GRP = {amp:'Amplifier', pitch:'Pitch', filter:'Filter', vel:'Velocity dynamics', range:'Velocity range', fx:'Effects', play:'Play mode', midi:'MIDI',
+  xnotes:'Extra MIDI notes', kit:'Kit', kitmidi:'Kit MIDI program', rev:'Reverb', fx1:'Delay 1 (FX1)', fx2:'Delay 2 (FX2)', comp:'Compressor', eq:'EQ'};
+function distOptions(){
+  // every copyable setting: {id, sec, label, kind:'inst'|'layer'|'pad'|'hdr', L, f}
+  const o = [];
+  [['A',4],['B',24]].forEach(([n,L]) => {
+    o.push({id:`i${n}`, sec:`Layer ${n}`, label:'Instrument', kind:'inst', L});
+    for (const f of SC.LAYER_FIELDS) o.push({id:`l${n}.${f.key}.${f.grp}`, sec:`Layer ${n}`, sub:DIST_GRP[f.grp], label:f.label, kind:'layer', L, f});
+  });
+  for (const f of SC.PAD_FIELDS_KIT) o.push({id:'p.'+f.key, sec:'Pad settings (all layers)', sub:DIST_GRP[f.grp], label:f.label, kind:'pad', f});
+  for (const f of SC.KIT_FIELDS) o.push({id:'h.'+f.key, sec:'Whole kit', sub:DIST_GRP[f.grp], label:f.label, kind:'hdr', f});
+  return o;
+}
+const DIST_SRC_OPEN = new Set(), DIST_TGT_OPEN = new Set();
+async function distributeOpen(){
+  if (!LIB.kits.length) return alert('No kits are loaded: open the internal drive or the SD card (File menu) first.');
+  if (KT.kit && kitIsDirty() && !confirm('The kit open in the Kit Editor has unsaved changes. If it is one of the targets, they will be lost. Continue?')) return;
+  const D = $('dlgDist'), OPT = distOptions(), sel = new Set(), kitsSel = new Set(), padsSel = new Set(SC.PAD_IDS);
+  let src = (KT.item && LIB.kits.includes(KT.item)) ? KT.item : LIB.kits[0];
+  const msg = (t, bad) => { $('distMsg').textContent = t; $('distMsg').style.color = bad ? 'var(--warn)' : 'var(--muted)'; };
+  const key = itemKey;
+  const wordsOf = f => f.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const kitLabel = it => (it.src ? KIND_LABEL[it.src.kind] + ': ' : '') + (/\.skt$/i.test(it.path) ? relAfter(it.path,'Kits') : it.path);
+  /* ---- 1 · source: the same kit tree as the Kit Editor, one kit */
+  const drawSrc = () => renderTree($('distSrcTree'), LIB.kits, {filter:$('distSrcFilter').value, cur:src, state:DIST_SRC_OPEN, empty:'No kits loaded.',
+    onPick: it => { src = it; kitsSel.delete(key(it)); drawSrc(); drawTgt(); refresh(); } });
+  /* ---- 3 · targets: same tree, several kits at once (user kits on the SD card only) */
+  const tgtItems = () => LIB.kits.filter(it => it !== src);
+  const shownTargets = () => { const w = wordsOf($('distKitFilter').value); return tgtItems().filter(it => canWrite(it) && w.every(x => (it.path+' '+(it.ref||'')).toLowerCase().includes(x))); };
+  const drawTgt = () => renderTree($('distKits'), tgtItems(), {filter:$('distKitFilter').value, state:DIST_TGT_OPEN, empty:'No other kits.',
+    folderBadge: all => { const w = all.filter(canWrite); if (!w.length) return ''; const n = w.filter(it => kitsSel.has(key(it))).length;
+      return `<span class="dchk${n===w.length?' on':n?' some':''}" data-fchk title="${n} of ${w.length} user kits selected">${n===w.length?'✓':n?'–':'✓'}</span>`; },
+    onFolder: all => { const w = all.filter(canWrite), allOn = w.every(it => kitsSel.has(key(it))); w.forEach(it => allOn ? kitsSel.delete(key(it)) : kitsSel.add(key(it))); msg(''); drawTgt(); refresh(); },
+    isSel: it => kitsSel.has(key(it)), rowClass: it => canWrite(it) ? '' : ' ro',
+    badge: it => canWrite(it) ? `<span class="dchk${kitsSel.has(key(it))?' on':''}">✓</span>` : '<span class="muted small" title="Only user kits on the SD card can be changed">read-only</span>',
+    onPick: it => { if (!canWrite(it)) return msg('That kit can’t be changed: only user kits on the SD card can.', true); kitsSel.has(key(it)) ? kitsSel.delete(key(it)) : kitsSel.add(key(it)); msg(''); drawTgt(); refresh(); } });
+  /* ---- 2 · settings: collapsible sections and groups, one chip per setting */
+  const secs = [...new Set(OPT.map(x=>x.sec))];
+  let h = `<details class="dsec"><summary>Apply to pads <span class="dgcnt" id="dpadCnt"></span><span class="dstools"><a href="#" data-padall="1">all</a><a href="#" data-padall="0">none</a></span></summary>
+    <div class="dpads">${SC.PAD_IDS.map(id=>`<label class="dchip on" data-pad="${esc(id)}"><input type="checkbox" checked> ${esc(SC.PAD_LABEL[id])}</label>`).join('')}</div></details>`;
+  secs.forEach((sc, si) => {
+    const items = OPT.filter(x => x.sec === sc), subs = [...new Set(items.map(x=>x.sub||''))];
+    const chip = x => `<label class="dchip" data-id="${esc(x.id)}"><input type="checkbox"> ${esc(x.label)}</label>`;
+    h += `<details class="dsec" data-sec="${esc(sc)}" ${si===0?'open':''}><summary>${esc(sc)} <span class="dgcnt" data-seccnt></span><span class="dstools"><a href="#" data-secall="1">all</a><a href="#" data-secall="0">none</a></span></summary><div class="dsec-body">`;
+    for (const sb of subs){
+      const its = items.filter(x => (x.sub||'') === sb);
+      if (!sb) h += `<div class="dchips" style="padding-left:0">${its.map(chip).join('')}</div>`;
+      else h += `<details class="dgrp" open><summary><input type="checkbox" class="dgchk" data-grp="${esc(sc+'|'+sb)}"> ${esc(sb)} <span class="dgcnt" data-grpcnt></span></summary><div class="dchips">${its.map(chip).join('')}</div></details>`;
+    }
+    h += '</div></details>';
+  });
+  $('distOpts').innerHTML = h;
+  const O = $('distOpts');
+  const refresh = () => {
+    $('distCount').textContent = sel.size ? `· ${sel.size} selected` : '';
+    $('distKitCount').textContent = kitsSel.size ? `· ${kitsSel.size} selected` : '';
+    $('dpadCnt').textContent = `${padsSel.size}/${SC.PAD_IDS.length}`;
+    O.querySelectorAll('.dchip[data-id]').forEach(c => { const on = sel.has(c.dataset.id); c.classList.toggle('on', on); c.querySelector('input').checked = on; });
+    O.querySelectorAll('.dchip[data-pad]').forEach(c => { const on = padsSel.has(c.dataset.pad); c.classList.toggle('on', on); c.querySelector('input').checked = on; });
+    O.querySelectorAll('details.dsec[data-sec]').forEach(d => {
+      const ids = OPT.filter(x => x.sec === d.dataset.sec), n = ids.filter(x => sel.has(x.id)).length;
+      d.querySelector('[data-seccnt]').textContent = n ? `${n} selected` : '';
+      d.querySelectorAll('details.dgrp').forEach(g => {
+        const gi = ids.filter(x => (d.dataset.sec+'|'+x.sub) === g.querySelector('.dgchk').dataset.grp), k = gi.filter(x => sel.has(x.id)).length, c = g.querySelector('.dgchk');
+        c.checked = k === gi.length; c.indeterminate = k > 0 && k < gi.length; g.querySelector('[data-grpcnt]').textContent = `${k}/${gi.length}`;
+      });
+    });
+    const needsPads = [...sel].some(id => !id.startsWith('h.'));
+    $('distGo').disabled = !sel.size || !kitsSel.size || (needsPads && !padsSel.size);
+    $('distGo').textContent = kitsSel.size ? `Copy to ${kitsSel.size} kit${kitsSel.size>1?'s':''}` : 'Copy settings';
+  };
+  O.onclick = e => {
+    const t = e.target;
+    const sa = t.closest('[data-secall]'); if (sa){ e.preventDefault(); const sc = sa.closest('details').dataset.sec; OPT.filter(x=>x.sec===sc).forEach(x => sa.dataset.secall==='1' ? sel.add(x.id) : sel.delete(x.id)); return refresh(); }
+    const pa = t.closest('[data-padall]'); if (pa){ e.preventDefault(); SC.PAD_IDS.forEach(id => pa.dataset.padall==='1' ? padsSel.add(id) : padsSel.delete(id)); return refresh(); }
+    const gc = t.closest('.dgchk'); if (gc){ const sc = gc.closest('details.dsec').dataset.sec; OPT.filter(x => (sc+'|'+x.sub) === gc.dataset.grp).forEach(x => gc.checked ? sel.add(x.id) : sel.delete(x.id)); return refresh(); }
+    if (t.closest('summary') && t.closest('.dgchk')) return;
+    const chip = t.closest('.dchip'); if (chip){ e.preventDefault();
+      if (chip.dataset.id){ sel.has(chip.dataset.id) ? sel.delete(chip.dataset.id) : sel.add(chip.dataset.id); }
+      else { padsSel.has(chip.dataset.pad) ? padsSel.delete(chip.dataset.pad) : padsSel.add(chip.dataset.pad); }
+      refresh(); }
+  };
+  $('distExpand').onclick = e => { e.preventDefault(); O.querySelectorAll('details').forEach(d => d.open = true); };
+  $('distCollapse').onclick = e => { e.preventDefault(); O.querySelectorAll('details').forEach(d => d.open = false); };
+  $('distNoneAll').onclick = e => { e.preventDefault(); sel.clear(); refresh(); };
+  $('distSrcFilter').value = ''; $('distSrcFilter').oninput = drawSrc;
+  $('distKitFilter').value = ''; $('distKitFilter').oninput = drawTgt;
+  $('distKitAll').onclick = e => { e.preventDefault(); shownTargets().forEach(it => kitsSel.add(key(it))); drawTgt(); refresh(); };
+  $('distKitNone').onclick = e => { e.preventDefault(); kitsSel.clear(); drawTgt(); refresh(); };
+  $('distClose').onclick = $('distX').onclick = () => D.close();
+  $('distGo').onclick = async () => {
+    const chosen = OPT.filter(x => sel.has(x.id)), targets = LIB.kits.filter(it => kitsSel.has(key(it)) && canWrite(it) && it !== src);
+    const needsPads = chosen.some(x => x.kind !== 'hdr');
+    if (!confirm(`Copy ${chosen.length} setting${chosen.length>1?'s':''}${needsPads?` on ${padsSel.size} pad${padsSel.size>1?'s':''}`:''} from “${src.name}” into ${targets.length} kit${targets.length>1?'s':''}?\n\nEach target is backed up first and then overwritten.`)) return;
+    $('distGo').disabled = true; msg('Working…');
+    try { const res = await distributeRun(src, targets, chosen, padsSel); msg(res.msg, res.bad); }
+    catch(e){ msg('Failed: ' + e.message, true); }
+    refresh();
+  };
+  drawSrc(); drawTgt(); refresh(); msg('Tick what to copy, then pick the kits that receive it.');
+  D.showModal();
+}
+/* copies the chosen settings from the source kit into every target kit (matching pads by their id), backing each one up first */
+async function distributeRun(srcItem, targets, chosen, pads){
+  const src = SC.parseKit(await srcItem.read());
+  const srcPads = new Map(src.pads.map(r => [SC.kitPadId(r), r]));
+  const srcPaths = new Map(src.pads.map(r => [SC.kitPadId(r), [SC.kitLayerInst(src,r,4), SC.kitLayerInst(src,r,24)]]));
+  const ok = [], fail = []; let askedBackup = false;
+  for (const t of targets){
+    try {
+      const orig = await t.read(), tk = SC.parseKit(orig);
+      const paths = tk.pads.map(r => [SC.kitLayerInst(tk,r,4), SC.kitLayerInst(tk,r,24)]);
+      let n = 0;
+      for (const x of chosen){
+        if (x.kind === 'hdr'){ SC.hdrSet(tk.header, x.f, SC.hdrGet(src.header, x.f)); n++; continue; }
+        tk.pads.forEach((rec, i) => {
+          const id = SC.kitPadId(rec); if (!pads.has(id) || !srcPads.has(id)) return;
+          const sr = srcPads.get(id);
+          if (x.kind === 'inst') paths[i][x.L === 4 ? 0 : 1] = srcPaths.get(id)[x.L === 4 ? 0 : 1];
+          else if (x.kind === 'layer') SC.layerSet(rec, x.L, x.f, SC.layerGet(sr, x.L, x.f));
+          else if (x.kind === 'pad') rec[x.f.o] = sr[x.f.o];
+          n++;
+        });
+      }
+      if (!LIB.backupDir ? !askedBackup : true){ if (!await backupOriginal(t, orig)) { fail.push(`${t.name}: cancelled`); break; } askedBackup = true; }
+      await writeHandle(t.handle, SC.buildKit(tk, paths));
+      kitDirty.delete(itemKey(t)); ok.push(t);
+    } catch(e){ fail.push(`${t.name}: ${e.message}`); }
+  }
+  if (KT.item && ok.includes(KT.item)){ const it = KT.item; KT.item = null; await openKit(it); }
+  const m = `${ok.length} kit${ok.length===1?'':'s'} updated${fail.length ? ' · problems: ' + fail.join('; ') : ''}. Power-cycle the module (or reload its kit list) so it picks up the changes.`;
+  if (ok.length) flashNote(`${ok.length} kit${ok.length===1?'':'s'} updated.`);
+  return {msg:m, bad: !!fail.length};
+}
 $('kitSaveAs').onclick = async () => {
   if (!KT.kit) return;
   const sd = sdSource(); if (!sd) return alert('Open the SD card first: user kits are saved there.');
